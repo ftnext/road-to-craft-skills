@@ -4,11 +4,12 @@ from stack import Stack
 
 
 class StackTestCase(TestCase):
+    def setUp(self):
+        self.stack = Stack()
+
     def test_can_create_stack(self):
-        stack = Stack()
-        self.assertTrue(stack.is_empty())
+        self.assertTrue(self.stack.is_empty())
 
     def test_can_push(self):
-        stack = Stack()
-        stack.push(0)
-        self.assertFalse(stack.is_empty())
+        self.stack.push(0)
+        self.assertFalse(self.stack.is_empty())
