@@ -1,16 +1,16 @@
 class Stack:
     def __init__(self) -> None:
-        self.empty = True
+        self.size = 0
 
     def is_empty(self) -> bool:
-        return self.empty
+        return self.size == 0
 
     def push(self, element: int) -> None:
-        self.empty = False
+        self.size += 1
 
     def pop(self) -> int:
-        self.empty = True
+        self.size -= 1
         return -1
 
     def get_size(self) -> int:
-        return 2
+        return self.size
