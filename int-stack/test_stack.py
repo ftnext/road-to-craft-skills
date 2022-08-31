@@ -11,3 +11,4 @@ class StackTestCase(TestCase):
     def test_can_push(self):
         stack = Stack()
         stack.push(0)
+        self.assertFalse(stack.is_empty())
