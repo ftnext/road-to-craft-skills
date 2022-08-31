@@ -13,3 +13,7 @@ class StackTestCase(TestCase):
     def test_after_one_push__is_not_empty(self):
         self.stack.push(0)
         self.assertFalse(self.stack.is_empty())
+
+    def test_after_one_push_and_one_pop__is_empty(self):
+        self.stack.push(0)
+        self.stack.pop()
