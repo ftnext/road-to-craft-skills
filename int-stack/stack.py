@@ -9,6 +9,8 @@ class Stack:
         self.size += 1
 
     def pop(self) -> int:
+        if self.size == 0:
+            raise Underflow()
         self.size -= 1
         return -1
 
