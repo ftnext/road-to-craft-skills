@@ -12,7 +12,7 @@ class Stack:
         if self.size == 0:
             raise Underflow()
         self.size -= 1
-        return -1
+        return 99
 
     def get_size(self) -> int:
         return self.size
