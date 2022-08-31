@@ -10,6 +10,6 @@ class StackTestCase(TestCase):
     def test_can_create_stack(self):
         self.assertTrue(self.stack.is_empty())
 
-    def test_can_push(self):
+    def test_after_one_push__is_not_empty(self):
         self.stack.push(0)
         self.assertFalse(self.stack.is_empty())
