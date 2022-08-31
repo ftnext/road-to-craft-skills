@@ -1,2 +1,2 @@
-class MyStack:
+class Stack:
     ...
