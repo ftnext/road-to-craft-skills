@@ -7,3 +7,6 @@ class Stack:
 
     def push(self, element: int) -> None:
         self.empty = False
+
+    def pop(self) -> int:
+        return -1
