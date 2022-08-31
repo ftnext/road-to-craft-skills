@@ -18,3 +18,8 @@ class StackTestCase(TestCase):
         self.stack.push(0)
         self.stack.pop()
         self.assertTrue(self.stack.is_empty())
+
+    def test_after_two_pushes__size_is_two(self):
+        self.stack.push(0)
+        self.stack.push(0)
+        self.assertEqual(2, self.stack.get_size())
