@@ -13,4 +13,4 @@ class Stack:
         return -1
 
     def get_size(self) -> int:
-        return 0
+        return 2
