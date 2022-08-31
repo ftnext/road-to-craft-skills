@@ -17,3 +17,4 @@ class StackTestCase(TestCase):
     def test_after_one_push_and_one_pop__is_empty(self):
         self.stack.push(0)
         self.stack.pop()
+        self.assertTrue(self.stack.is_empty())
