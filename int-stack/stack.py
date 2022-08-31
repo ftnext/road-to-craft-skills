@@ -9,4 +9,5 @@ class Stack:
         self.empty = False
 
     def pop(self) -> int:
+        self.empty = True
         return -1
