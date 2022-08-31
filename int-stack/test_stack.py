@@ -29,3 +29,7 @@ class StackTestCase(TestCase):
     def test_popping_empty_stack__throws_Underflow(self):
         with self.assertRaises(Underflow):
             self.stack.pop()
+
+    def test_after_pushing_X__will_pop_X(self):
+        self.stack.push(99)
+        self.assertEqual(99, self.stack.pop())
