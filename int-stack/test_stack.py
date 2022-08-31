@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from stack import Stack
+from stack import Stack, Underflow
 
 
 class StackTestCase(TestCase):
@@ -25,3 +25,7 @@ class StackTestCase(TestCase):
         self.stack.push(0)
         self.stack.push(0)
         self.assertEqual(2, self.stack.get_size())
+
+    def test_popping_empty_stack__throws_Underflow(self):
+        with self.assertRaises(Underflow):
+            ...
