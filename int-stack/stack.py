@@ -11,3 +11,6 @@ class Stack:
     def pop(self) -> int:
         self.empty = True
         return -1
+
+    def get_size(self) -> int:
+        return 0
