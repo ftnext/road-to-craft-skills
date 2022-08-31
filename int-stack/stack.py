@@ -7,12 +7,13 @@ class Stack:
 
     def push(self, element: int) -> None:
         self.size += 1
+        self.element = element
 
     def pop(self) -> int:
         if self.size == 0:
             raise Underflow()
         self.size -= 1
-        return 99
+        return self.element
 
     def get_size(self) -> int:
         return self.size
