@@ -14,3 +14,7 @@ class Stack:
 
     def get_size(self) -> int:
         return self.size
+
+
+class Underflow(RuntimeError):
+    ...
