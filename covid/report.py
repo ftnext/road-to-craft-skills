@@ -1,3 +1,6 @@
+from collections.abc import Iterable
+
+
 class NewCasesReporter:
     def __init__(self) -> None:
         self.total_cases = 0
@@ -5,11 +8,27 @@ class NewCasesReporter:
         self.counties = []
 
     def make_report(self, county_csv: str) -> str:
+        county_lines = county_csv.split("\n")
+        self.calculate_counties(county_lines)
+        report = (
+            ""
+            + "County     State     Avg New Cases\n"
+            + "======     =====     =============\n"
+        )
+        for county in self.counties:
+            report += f"{county.county: <11}{county.state: <10}{county.rolling_average:.2f}\n"
+        report += "\n"
+        states = set(self.state_counts.keys())
+        for state in sorted(states):
+            report += f"{state} cases: {self.state_counts[state]}\n"
+        report += f"Total Cases: {self.total_cases}\n"
+        return report
+
+    def calculate_counties(self, lines: Iterable[str]) -> None:
         self.total_cases = 0
         self.state_counts.clear()
         self.counties.clear()
 
-        lines = county_csv.split("\n")
         for line in lines:
             tokens = line.split(",")
             county = County()
@@ -38,20 +57,6 @@ class NewCasesReporter:
             state_count = self.state_counts.get(county.state, 0)
             self.state_counts[county.state] = state_count + cases
             self.counties.append(county)
-
-        report = (
-            ""
-            + "County     State     Avg New Cases\n"
-            + "======     =====     =============\n"
-        )
-        for county in self.counties:
-            report += f"{county.county: <11}{county.state: <10}{county.rolling_average:.2f}\n"
-        report += "\n"
-        states = set(self.state_counts.keys())
-        for state in sorted(states):
-            report += f"{state} cases: {self.state_counts[state]}\n"
-        report += f"Total Cases: {self.total_cases}\n"
-        return report
 
 
 class County:
