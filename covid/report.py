@@ -10,11 +10,7 @@ class NewCasesReporter:
     def make_report(self, county_csv: str) -> str:
         county_lines = county_csv.split("\n")
         self.calculate_counties(county_lines)
-        report = (
-            ""
-            + "County     State     Avg New Cases\n"
-            + "======     =====     =============\n"
-        )
+        report = self.make_header()
         for county in self.counties:
             report += f"{county.county: <11}{county.state: <10}{county.rolling_average:.2f}\n"
         report += "\n"
@@ -57,6 +53,13 @@ class NewCasesReporter:
             state_count = self.state_counts.get(county.state, 0)
             self.state_counts[county.state] = state_count + cases
             self.counties.append(county)
+
+    def make_header(self) -> str:
+        return (
+            ""
+            + "County     State     Avg New Cases\n"
+            + "======     =====     =============\n"
+        )
 
 
 class County:
