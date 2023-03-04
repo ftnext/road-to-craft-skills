@@ -1,21 +1,11 @@
 from collections.abc import Iterable
 
 
-class NewCasesReporter:
+class NewCasesCalculator:
     def __init__(self) -> None:
         self.total_cases = 0
         self.state_counts = {}
         self.counties = []
-
-    def make_report(self, county_csv: str) -> str:
-        county_lines = county_csv.split("\n")
-        self.calculate_counties(county_lines)
-        report = self.make_header()
-        report += self.make_county_details()
-        report += "\n"
-        report += self.make_state_totals()
-        report += f"Total Cases: {self.total_cases}\n"
-        return report
 
     def calculate_counties(self, county_lines: Iterable[str]) -> None:
         self.total_cases = 0
@@ -61,6 +51,18 @@ class NewCasesReporter:
     def increment_state_counter(self, state: str, cases: int):
         state_count = self.state_counts.get(state, 0)
         self.state_counts[state] = state_count + cases
+
+
+class NewCasesReporter(NewCasesCalculator):
+    def make_report(self, county_csv: str) -> str:
+        county_lines = county_csv.split("\n")
+        self.calculate_counties(county_lines)
+        report = self.make_header()
+        report += self.make_county_details()
+        report += "\n"
+        report += self.make_state_totals()
+        report += f"Total Cases: {self.total_cases}\n"
+        return report
 
     def make_header(self) -> str:
         return (
