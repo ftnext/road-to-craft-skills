@@ -17,20 +17,24 @@ class NewCasesReporter:
         report += f"Total Cases: {self.total_cases}\n"
         return report
 
-    def calculate_counties(self, lines: Iterable[str]) -> None:
+    def calculate_counties(self, county_lines: Iterable[str]) -> None:
         self.total_cases = 0
         self.state_counts.clear()
         self.counties.clear()
 
-        for line in lines:
-            tokens = line.split(",")
-            county = County()
-            county.county = tokens[0].strip()
-            county.state = tokens[1].strip()
-            county.rolling_average = self.calculate_rolling_average(tokens)
-            cases = self.calculate_sum_of_cases(tokens)
-            self.increment_state_counter(county.state, cases)
+        for county_line in county_lines:
+            county = self.calculate_county(county_line)
             self.counties.append(county)
+
+    def calculate_county(self, line: str) -> "County":
+        county = County()
+        tokens = line.split(",")
+        county.county = tokens[0].strip()
+        county.state = tokens[1].strip()
+        county.rolling_average = self.calculate_rolling_average(tokens)
+        cases = self.calculate_sum_of_cases(tokens)
+        self.increment_state_counter(county.state, cases)
+        return county
 
     def increment_state_counter(self, state: str, cases: int):
         state_count = self.state_counts.get(state, 0)
