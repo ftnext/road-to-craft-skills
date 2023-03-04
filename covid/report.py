@@ -36,9 +36,12 @@ class NewCasesReporter:
                 cases += int(tokens[i].strip())
                 i += 1
             self.total_cases += cases
-            state_count = self.state_counts.get(county.state, 0)
-            self.state_counts[county.state] = state_count + cases
+            self.increment_state_counter(county.state, cases)
             self.counties.append(county)
+
+    def increment_state_counter(self, state: str, cases: int):
+        state_count = self.state_counts.get(state, 0)
+        self.state_counts[state] = state_count + cases
 
     def calculate_rolling_average(self, tokens: list[str]) -> float:
         last_day = len(tokens) - 1
