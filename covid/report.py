@@ -27,18 +27,7 @@ class NewCasesReporter:
             county = County()
             county.county = tokens[0].strip()
             county.state = tokens[1].strip()
-            # compute rolling average
-            last_day = len(tokens) - 1
-            first_day = last_day - 7 + 1
-            if first_day < 2:
-                first_day = 2
-            n = last_day - first_day + 1
-            sum_ = 0
-            day = first_day
-            while day <= last_day:
-                sum_ += int(tokens[day].strip())
-                day += 1
-            county.rolling_average = sum_ / n
+            county.rolling_average = self.calculate_rolling_average(tokens)
 
             # compute sum of cases
             cases = 0
@@ -50,6 +39,19 @@ class NewCasesReporter:
             state_count = self.state_counts.get(county.state, 0)
             self.state_counts[county.state] = state_count + cases
             self.counties.append(county)
+
+    def calculate_rolling_average(self, tokens: list[str]) -> float:
+        last_day = len(tokens) - 1
+        first_day = last_day - 7 + 1
+        if first_day < 2:
+            first_day = 2
+        n = last_day - first_day + 1
+        sum_ = 0
+        day = first_day
+        while day <= last_day:
+            sum_ += int(tokens[day].strip())
+            day += 1
+        return sum_ / n
 
     def make_header(self) -> str:
         return (
