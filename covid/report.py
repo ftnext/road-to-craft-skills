@@ -28,14 +28,7 @@ class NewCasesReporter:
             county.county = tokens[0].strip()
             county.state = tokens[1].strip()
             county.rolling_average = self.calculate_rolling_average(tokens)
-
-            # compute sum of cases
-            cases = 0
-            i = 2
-            while i < len(tokens):
-                cases += int(tokens[i].strip())
-                i += 1
-            self.total_cases += cases
+            cases = self.calculate_sum_of_cases(tokens)
             self.increment_state_counter(county.state, cases)
             self.counties.append(county)
 
@@ -55,6 +48,15 @@ class NewCasesReporter:
             sum_ += int(tokens[day].strip())
             day += 1
         return sum_ / n
+
+    def calculate_sum_of_cases(self, tokens: list[str]) -> int:
+        cases = 0
+        i = 2
+        while i < len(tokens):
+            cases += int(tokens[i].strip())
+            i += 1
+        self.total_cases += cases
+        return cases
 
     def make_header(self) -> str:
         return (
