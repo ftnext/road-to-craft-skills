@@ -13,9 +13,7 @@ class NewCasesReporter:
         report = self.make_header()
         report += self.make_county_details()
         report += "\n"
-        states = set(self.state_counts.keys())
-        for state in sorted(states):
-            report += f"{state} cases: {self.state_counts[state]}\n"
+        report += self.make_state_totals()
         report += f"Total Cases: {self.total_cases}\n"
         return report
 
@@ -65,6 +63,13 @@ class NewCasesReporter:
         for county in self.counties:
             county_details += f"{county.county: <11}{county.state: <10}{county.rolling_average:.2f}\n"
         return county_details
+
+    def make_state_totals(self) -> str:
+        state_totals = ""
+        states = set(self.state_counts.keys())
+        for state in sorted(states):
+            state_totals += f"{state} cases: {self.state_counts[state]}\n"
+        return state_totals
 
 
 class County:
