@@ -36,10 +36,6 @@ class NewCasesReporter:
         self.increment_state_counter(county.state, cases)
         return county
 
-    def increment_state_counter(self, state: str, cases: int):
-        state_count = self.state_counts.get(state, 0)
-        self.state_counts[state] = state_count + cases
-
     def calculate_rolling_average(self, tokens: list[str]) -> float:
         last_day = len(tokens) - 1
         first_day = last_day - 7 + 1
@@ -61,6 +57,10 @@ class NewCasesReporter:
             i += 1
         self.total_cases += cases
         return cases
+
+    def increment_state_counter(self, state: str, cases: int):
+        state_count = self.state_counts.get(state, 0)
+        self.state_counts[state] = state_count + cases
 
     def make_header(self) -> str:
         return (
